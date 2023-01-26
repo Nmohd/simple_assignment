@@ -8,7 +8,7 @@ const Home = () => {
     const myTimeout = setTimeout(() => {
       window.location.href = "/";
       localStorage.removeItem("token")
-    }, 5000);
+    }, 1800000);
   }, []);
 
   const Ref = useRef(null);
