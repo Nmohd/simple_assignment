@@ -1,0 +1,13 @@
+{
+    "PORT": 5500,
+    "URL": "http://172.27.186.101:5500",
+    "PRIVATE_KEY": "najeebprivatekey",
+  
+    "SEND_SMS": {
+      "TWILIO_SID": "AC8838c0aed56903b1eda0198354532156",
+      "TWILIO_TOKEN": "aedca01e37e8c88fb422813f09a0720a",
+      "TWILIO_NUMBER": "+13856441108"
+    }
+    
+
+  }
