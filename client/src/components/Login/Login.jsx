@@ -14,6 +14,17 @@ const Login = () => {
   const [otpV, setOtpV] = useState("");
 
 
+  const getOTP = async (e) => {
+    try {
+      e.preventDefault();
+      let res = await axios.post("/api/sendotp", {phone:email});
+      alert("otp sent");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   const handleSubmit = async (e) => {
     try {
@@ -127,7 +138,9 @@ const Login = () => {
                 if (usePassword) {
                   setUsePassword((prev) => !prev);
                 }
-                return setOtp((prev) => !prev);
+                setOtp((prev) => !prev);
+                getOTP(e)
+                
               }}
             >
               Log In with OTP

@@ -8,6 +8,8 @@ import sendSMS from "../../utils/sendSMS.js";
 
 const router = express.Router();
 
+const otpDB ={}
+
 router.get("/", (req, res) => {
   try {
     res.status(200).json({ success: "Router GET is UP yay" });
@@ -24,22 +26,30 @@ router.post("/sendotp", async (req, res) => {
   try {
     const { firstname, lastname, email, password, phone } = req.body;
     console.log(req.body);
+    // let use;
+    // if (!email) {
+    //   use = await userModel.findOne({ phone });
+    // }
+    // console.log(use)
 
     await sendSMS({ body: "hello Your otp is 1234 ", to: phone });
     // const user = await userModel.findOne({ email });
-    const userData = {
-      firstname,
-      lastname,
-      password: "789465",
-      email,
-      phone,
-      otp: 1234,
-    };
+
+    // const userData = {
+    //   email: use.email,
+    //   phone,
+    //   otp: 1234,
+    // };
+
+    otpDB[phone]=1234
 
     // user.otp = 1234;
-    const user = new userModel(userData);
+    // const user = new userModel(userData);
+    // use.phone=phone
+    // use.otp="1234"
 
-    await user.save();
+    // await use.save();
+
     res.status(200).json({ success: "otp sent" });
   } catch (error) {
     console.error(error);
@@ -65,7 +75,7 @@ router.post("/signup", async (req, res) => {
     console.log("line 59", Gotmail);
 
     if (otp && Gotmail) {
-      if (otp != Gotmail.otp) {
+      if (otp != otpDB[Gotmail.phone]) {
         return res.status(409).json({ error: "Otp not matched" });
       } else {
         return res.status(200).json({ success: "otp verified" });
@@ -112,8 +122,11 @@ router.post("/login", async (req, res) => {
   try {
     let { email, password, otp } = req.body;
     console.log(req.body, "139");
+    console.log(otpDB,"125")
 
-    let userFound = await userModel.findOne({ email });
+    let userFound =
+      (await userModel.findOne({ email })) ||
+      (await userModel.findOne({ phone: email }));
 
     if (!userFound) {
       return res
@@ -122,7 +135,7 @@ router.post("/login", async (req, res) => {
     }
 
     if (otp) {
-      if (otp != userFound.otp) {
+      if (otp != otpDB[userFound.phone]) {
         return res.status(409).json({ error: "Otp not matched" });
       }
     } else {

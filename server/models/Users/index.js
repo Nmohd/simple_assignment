@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxlength: 25,
     minlength: 2,
-    required: true,
+    required: false,
   },
   lastname: {
     type: String,
     maxlength: 25,
     minlength: 2,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
@@ -21,11 +21,11 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   phone: {
     type: String,
-    required: true,
+    required: false,
   },
   otp:{
     type:Number,
