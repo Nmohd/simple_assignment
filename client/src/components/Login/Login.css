@@ -28,6 +28,7 @@ button {
   cursor: pointer;
   color: #ffffff;
   background-color: rgba(23, 211, 166, 255);
+  margin: 5px;
 }
 
 @media only screen and (max-width: 1000px) {

@@ -55,7 +55,7 @@ const Signup = () => {
     <>
       <div className="auth-form-container">
         <form className="login-form" onSubmit={onSubmitHandler}>
-          <h2>Register </h2>
+          <h2>Register Yourself </h2>
 
           <input
             value={firstname}
